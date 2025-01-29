@@ -1,10 +1,8 @@
 const express = require("express");
 const cors = require("cors");
-// const connectToMongoDB = require("./db/db");
-import connectToMongoDB from './db/db.js';
-
-// import { EventEmitter } from 'events';
-// EventEmitter.defaultMaxListeners = 15;
+const connectToMongoDB = require("./db/db");
+// const connectToMongoDB = require('./db/db.js');
+// import connectToMongoDB from './db/db.js';
 
 const noteRouter = require("./routes/note"); 
 
