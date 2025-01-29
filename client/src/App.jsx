@@ -1,20 +1,13 @@
-import './App.css'
-import Login from './Login'
-import Nav from './Nav'
-import Signup from './Signup'
+import Home from './Components/Home';
 
 function App() {
-  
-
   return (
     <>
       <div>
-        <Nav />
-        {/* <Login /> */}
-        {/* <Signup /> */}
+        <Home />
       </div>
     </>
-  )
+  );
 }
 
-export default App
+export default App;
