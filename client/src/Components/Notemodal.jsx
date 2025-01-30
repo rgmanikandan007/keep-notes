@@ -5,8 +5,8 @@ const Notemodal = ({closeModal,addNote}) => {
   const [description, setDescription] = useState("");
 
 
-  const handleSubmit = async (e) => {
-    e.prevenDefault();
+  const handleSubmit = async (event) => {
+    // event.preventDefault();
     addNote(title, description)
   };
 
@@ -30,12 +30,12 @@ const Notemodal = ({closeModal,addNote}) => {
           />
           <button
             type="submit"
-            className="bg-blue-500 text-white px-4 py-2 rounded"
+            className="bg-blue-500 cursor-pointer text-white px-4 py-2 rounded"
           >
             Add Note
           </button>
         </form>
-        <button className="mt-4 text-red-500" onClick={closeModal}>Cancel</button>
+        <button className="mt-4 text-red-500 cursor-pointer" onClick={closeModal}>Cancel</button>
       </div>
     </div>
   );

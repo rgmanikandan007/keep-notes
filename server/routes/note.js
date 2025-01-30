@@ -1,26 +1,28 @@
-const express = require("express")
-const Note = require("../models/Note")
+const express = require("express");
+const Note = require("../models/Note");
 
-const router = express.Router()
+const router = express.Router();
 
 router.post('/add', async (req, res) => {
+    try {
+        const { title, description } = req.body;
+        const newNote = new Note({ title, description });
+        await newNote.save();
+
+        return res.status(200).json({ success: true, message: "Note Created Successfully" }, console.log("Note Created Successfully"));
+    } catch (err) {
+        console.error(err.message);
+        return res.status(500).json({ success: false, message: "Error in Adding Note" },console.log("Error in Adding Note"));
+    }
+});
+
+router.get('/', async (req, res) => {
     try{
-        const {title, description} = req.body;
-        const newNote = new Note({
-            title,
-            description
-        });
-        await newNote.save()
-        return res
-        .status(200)
-        .json({success: true, message: "Note Created Successfully"})
-    } catch(err){
-        console.log(err.message);
-        return res
-        .status(500)
-        .json({success: true, message: "Error in Adding Note"})
+        const notes = await Note.find()
+        return res.status(200).json({success: true, notes})
+    }catch(err){
+        return res.status(500).json({success: false, message: "can't retrive notes"})
     }
 })
 
-// export default router;
 module.exports = router;
