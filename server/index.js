@@ -8,7 +8,9 @@ const app = express();
 
 app.use(cors())
 app.use(express.json())
-app.use('api/note', noteRouter)
+app.use('/api/note', noteRouter)
+
+
 
 app.post('/api/note/add', (req, res) => {
     console.log('Received a POST request to /api/note/add');
