@@ -3,7 +3,7 @@ import { FaEdit, FaTrash } from 'react-icons/fa';
 
 const Notecard = ({note}) => {
   return (
-    <div className='bg-white p-4 rounded shadow'>
+    <div className='bg-white p-4 m-2 rounded shadow'>
         <h2 className='text-xl font-bold'>{note.title}</h2>
         <p>{note.description}</p>
 

@@ -22,5 +22,5 @@ const port = 5000;
 
 app.listen(port, () => {
     connectToMongoDB()
-    console.log(`Server is running on port ${port}`);
+    console.log(`Server is running on port  ${port}`);
 });
