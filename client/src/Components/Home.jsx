@@ -7,6 +7,7 @@ import Notecard from "./Notecard";
 const Home = () => {
   const [modalOpen, setModalOpen] = useState(false);
   const [notes, setNotes] = useState([]);
+  const [currentNote, setCurrentNote] = useState(null)
 
   useEffect(() => {
     const fetchNotes = async () => {
@@ -24,6 +25,11 @@ const Home = () => {
     setModalOpen(false);
   };
 
+  const onEdit = (note) => {
+    setCurrentNote(note)
+    setModalOpen(true)
+  }
+
   const addNote = async (title, description) => {
     try {
       const response = await axios.post("http://localhost:5000/api/note/add", {
@@ -31,7 +37,7 @@ const Home = () => {
         description,
       });
       if (response.data.success) {
-        console.log("done");
+        console.log("done");    
         closeModal();
       }
     } catch (err) {
@@ -45,13 +51,13 @@ const Home = () => {
 
       <div className="grid grid-cols-1 md:grid-cols-4">
         {notes.map((note) => (
-          <Notecard note={note} />
+          <Notecard note={note} onEdit={onEdit}/>
         ))}
       </div>
 
       <button
         onClick={() => setModalOpen(true)}
-        className="fixed right-4 bottom-4 cursor-pointer text-2xl bg-teal-500 text-white font-bold p-4 rounded-full"
+        className="fixed right-4 bottom-4 -pointer text-2xl bg-teal-500 text-white font-bold p-4 rounded-full"
       >
         +
       </button>
