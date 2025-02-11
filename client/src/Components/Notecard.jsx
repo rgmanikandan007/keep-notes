@@ -1,7 +1,7 @@
 import React from 'react'
 import { FaEdit, FaTrash } from 'react-icons/fa';
 
-const Notecard = ({note}) => {
+const Notecard = ({note}) => {  
   return (
     <div className='bg-white p-4 m-2 rounded shadow'>
         <h2 className='text-xl font-bold'>{note.title}</h2>
@@ -11,7 +11,7 @@ const Notecard = ({note}) => {
             <button className='text-blue-500 mr-2'>
                 <FaEdit/>
             </button>
-            <button className='text-red-500'>
+            <button className='text-red-600'>
                 <FaTrash/>
             </button>
         </div>
