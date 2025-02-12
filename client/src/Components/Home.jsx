@@ -45,6 +45,22 @@ const Home = () => {
     }
   };
 
+  const editNote = async (id, title, description) => {
+    try {
+      const response = await axios.put(`http://localhost:5000/api/note/${id}`, {
+        id,
+        title,
+        description,
+      });
+      if (response.data.success) {
+        console.log("done");   
+        closeModal();
+      }
+    } catch (err) {
+      console.error("Error adding note:", err);
+    }
+  }
+
   return (
     <div>
       <Navbar />
@@ -57,11 +73,11 @@ const Home = () => {
 
       <button
         onClick={() => setModalOpen(true)}
-        className="fixed right-4 bottom-4 -pointer text-2xl bg-teal-500 text-white font-bold p-4 rounded-full"
+        className="fixed right-4 bottom-4 cursor-pointer text-2xl bg-teal-500 text-white font-bold p-4 rounded-full"
       >
         +
       </button>
-      {modalOpen && <Notemodal closeModal={closeModal} addNote={addNote} />}
+      {modalOpen && <Notemodal closeModal={closeModal} addNote={addNote} currentNote={currentNote} editNote={editNote} />}
     </div>
   );
 };
