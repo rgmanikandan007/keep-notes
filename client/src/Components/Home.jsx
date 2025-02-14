@@ -8,6 +8,15 @@ const Home = () => {
   const [modalOpen, setModalOpen] = useState(false);
   const [notes, setNotes] = useState([]);
   const [currentNote, setCurrentNote] = useState(null)
+  const [query, setQuery] = useState('')
+  const [filteredNotes, setFilteredNotes] = useState(false)
+
+  useEffect(() => {
+    setFilteredNotes(
+      notes.filter((note) => note.title.toLowerCase().includes(query.toLowerCase())) ||
+      notes.filter((note) => note.description.toLowerCase().includes(query.toLowerCase()))
+    )
+  },[query, notes])
 
   useEffect(() => {
     const fetchNotes = async () => {
@@ -57,18 +66,31 @@ const Home = () => {
         closeModal();
       }
     } catch (err) {
-      console.error("Error adding note:", err);
+      console.error("Error Editing note:", err);
+    }
+  }
+
+  const deleteNote = async (id) => {
+    try {
+      const response = await axios.delete(`http://localhost:5000/api/note/${id}`);
+      if (response.data.success) {
+        console.log("done");   
+        closeModal()
+        window.location.reload()
+      }
+    } catch (err) {
+      console.error("Error deleting note:", err);
     }
   }
 
   return (
     <div>
-      <Navbar />
+      <Navbar setQuery={setQuery}/>
 
       <div className="grid grid-cols-1 md:grid-cols-4">
-        {notes.map((note) => (
-          <Notecard note={note} onEdit={onEdit}/>
-        ))}
+        {filteredNotes.length > 0 ? filteredNotes.map((note) => (
+          <Notecard note={note} onEdit={onEdit} deleteNote={deleteNote}/>
+        )) : <p>No Notes</p>}
       </div>
 
       <button
@@ -77,7 +99,7 @@ const Home = () => {
       >
         +
       </button>
-      {modalOpen && <Notemodal closeModal={closeModal} addNote={addNote} currentNote={currentNote} editNote={editNote} />}
+      {modalOpen && <Notemodal closeModal={closeModal} addNote={addNote} currentNote={currentNote} editNote={editNote} deleteNote={deleteNote}/>}
     </div>
   );
 };
