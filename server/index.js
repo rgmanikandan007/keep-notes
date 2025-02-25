@@ -14,7 +14,7 @@ app.use('/api/note', noteRouter)
 
 app.post('/api/note/add', (req, res) => {
     console.log('Received a POST request to /api/note/add');
-    console.log(req.body); //check if data is sent correctly
+    console.log(req.body);
     res.status(200).send({ message: 'Note added successfully' });
   });
 

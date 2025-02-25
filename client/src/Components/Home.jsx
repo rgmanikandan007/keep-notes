@@ -74,7 +74,7 @@ const Home = () => {
     try {
       const response = await axios.delete(`http://localhost:5000/api/note/${id}`);
       if (response.data.success) {
-        // console.log("done");   
+        console.log("done");   
         closeModal()
         window.location.reload()
       }
